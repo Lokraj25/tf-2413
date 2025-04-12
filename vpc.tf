@@ -44,7 +44,7 @@ resource "aws_internet_gateway" "ibm-igw" {
 
 
 # public route
-resource "aws_route_table" "ibm-web-rt" {
+resource "aws_route_table" "ibm-data-rt" {
   vpc_id = aws_vpc.ibm-vpc.id
 
   route {
