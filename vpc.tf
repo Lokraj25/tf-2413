@@ -44,7 +44,7 @@ resource "aws_internet_gateway" "ibm-igw" {
 
 
 # public route
-resource "aws_route_table1" "ibm-data-rt" {
+resource "aws_route_table" "ibm-data-rt" {
   vpc_id = aws_vpc.ibm-vpc.id
 
   route {
@@ -53,12 +53,12 @@ resource "aws_route_table1" "ibm-data-rt" {
   }
 
   tags = {
-    Name = "ibm-route-table1"
+    Name = "ibm-route-table"
   }
 }
 
 #public route table association
-resource "aws_route_table_association1" "ibm-web-et-association" {
+resource "aws_route_table_association" "ibm-web-et-association1" {
   subnet_id      = aws_subnet.ibm-web-sn.id
   route_table_id = aws_route_table.ibm-web-rt.id
 }
@@ -66,7 +66,7 @@ resource "aws_route_table_association1" "ibm-web-et-association" {
 
 
 # private  route
-resource "aws_route_table" "ibm-data-rt" {
+resource "aws_route_table" "ibm-data-rt1" {
   vpc_id = aws_vpc.ibm-vpc.id
 
   route {
@@ -80,7 +80,7 @@ resource "aws_route_table" "ibm-data-rt" {
 }
 
 #public route table association
-resource "aws_route_table_association" "ibm-data-et-association" {
+resource "aws_route_table_association" "ibm-data-et-association1" {
   subnet_id      = aws_subnet.ibm-data-sn.id
   route_table_id = aws_route_table.ibm-web-rt.id
 }
