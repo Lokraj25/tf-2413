@@ -8,7 +8,7 @@ resource "aws_vpc" "ibm-vpc" {
   }
 }
 
-# subnet
+# public subnet
 resource "aws_subnet" "ibm-web-sn" {
   vpc_id     = aws_vpc.ibm-vpc.id
   cidr_block = "10.0.1.0/24"
@@ -17,5 +17,17 @@ resource "aws_subnet" "ibm-web-sn" {
 
   tags = {
     Name = "ibm-web-sn"
+  }
+}
+
+# private subnet
+resource "aws_subnet" "ibm-data-sn" {
+  vpc_id     = aws_vpc.ibm-vpc.id
+  cidr_block = "10.0.2.0/24"
+  availability_zone ="ap-northeast-2"
+  map_public_ip_on_launch = "false"
+
+  tags = {
+    Name = "ibm-database-sn"
   }
 }
