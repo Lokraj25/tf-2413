@@ -24,7 +24,7 @@ resource "aws_subnet" "ibm-web-sn" {
 resource "aws_subnet" "ibm-data-sn" {
   vpc_id     = aws_vpc.ibm-vpc.id
   cidr_block = "10.0.2.0/24"
-  availability_zone ="ap-northeast-2"
+  availability_zone ="ap-northeast-1c"
   map_public_ip_on_launch = "false"
 
   tags = {
