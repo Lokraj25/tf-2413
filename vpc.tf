@@ -58,7 +58,7 @@ resource "aws_route_table" "ibm-data-rt" {
 }
 
 #public route table association
-resource "aws_route_table_association" "ibm-web-et-association1" {
+resource "aws_route_table_association" "ibm-web-et-association" {
   subnet_id      = aws_subnet.ibm-web-sn.id
   route_table_id = aws_route_table.ibm-web-rt.id
 }
@@ -66,7 +66,7 @@ resource "aws_route_table_association" "ibm-web-et-association1" {
 
 
 # private  route
-resource "aws_route_table" "ibm-data-rt1" {
+resource "aws_route_table" "ibm-data-rt" {
   vpc_id = aws_vpc.ibm-vpc.id
 
   route {
@@ -80,7 +80,37 @@ resource "aws_route_table" "ibm-data-rt1" {
 }
 
 #public route table association
-resource "aws_route_table_association" "ibm-data-et-association1" {
+resource "aws_route_table_association" "ibm-data-et-association" {
   subnet_id      = aws_subnet.ibm-data-sn.id
   route_table_id = aws_route_table.ibm-web-rt.id
+}
+
+
+
+
+# public NACL
+resource "aws_network_acl" "main" {
+  vpc_id = aws_vpc.ibm-vpc.id
+
+  egress {
+    protocol   = "tcp"
+    rule_no    = 200
+    action     = "allow"
+    cidr_block = "0.0.0.0/0"
+    from_port  = 0
+    to_port    = 65535
+  }
+
+  ingress {
+    protocol   = "tcp"
+    rule_no    = 100
+    action     = "allow"
+    cidr_block = "10.3.0.0/18"
+    from_port  = 0
+    to_port    = 65535
+  }
+
+  tags = {
+    Name = "ibm-web-nacl"
+  }
 }
