@@ -156,3 +156,33 @@ resource "aws_network_acl_association" "ibm-data-nacl-association" {
   network_acl_id = aws_network_acl.ibm-data-nacl.id
   subnet_id      = aws_subnet.ibm-data-sn.id
 }
+
+#public security group
+
+resource "aws_security_group" "ibm_web_sg" {
+  name        = "ibm_web_server_sg"
+  description = "Allow web server traffic"
+  vpc_id      = aws_vpc.ibm_vpc.id
+
+  tags = {
+    Name = "ibm_web_security_group"
+  }
+}
+
+#ssh security group
+resource "aws_vpc_security_group_ingress_rule" "ibm_web_ssh" {
+  security_group_id = aws_security_group.ibm_web_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 22
+  ip_protocol       = "tcp"
+  to_port           = 22
+}
+
+#http security group
+resource "aws_vpc_security_group_ingress_rule" "ibm_http_ssh" {
+  security_group_id = aws_security_group.ibm_web_sg.id
+  cidr_ipv4         = "0.0.0.0/0"
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
