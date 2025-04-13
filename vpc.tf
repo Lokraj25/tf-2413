@@ -69,18 +69,18 @@ resource "aws_route_table_association" "ibm-web-et-association" {
 resource "aws_route_table" "ibm-data-rt" {
   vpc_id = aws_vpc.ibm-vpc.id
 
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.ibm-igw.id
-  }
+  #route {
+   # cidr_block = "0.0.0.0/0"
+   # gateway_id = aws_internet_gateway.ibm-igw.id
+  #}
 
   tags = {
     Name = "ibm-database-route-table"
-  }
+ }
 }
 
-#public route table association
-resource "aws_route_table_association" "ibm-data-et-association" {
+#private route table association
+resource "aws_route_table_association" "ibm-data-rt-association" {
   subnet_id      = aws_subnet.ibm-data-sn.id
   route_table_id = aws_route_table.ibm-web-rt.id
 }
