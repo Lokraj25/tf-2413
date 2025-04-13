@@ -140,7 +140,7 @@ resource "aws_network_acl" "ecomm-data-nacl" {
     protocol   = "tcp"
     rule_no    = 100
     action     = "allow"
-    cidr_block = "10.3.0.0/18"
+    cidr_block = "0.0.0.0/0"
     from_port  = 0
     to_port    = 65535
   }
@@ -184,4 +184,14 @@ resource "aws_vpc_security_group_ingress_rule" "ecomm_http_ssh" {
   from_port         = 80
   ip_protocol       = "tcp"
   to_port           = 80
+}
+
+#outbound security group
+resource "aws_vpc_security_group_egress_rule" "ecomm-outbound" {
+  security_group_id = aws_security_group.ecomm_web_sg.id
+
+  cidr_ipv4   = "0.0.0.0/0"
+  from_port   = 0
+  ip_protocol = "tcp"
+  to_port     = 65535
 }
