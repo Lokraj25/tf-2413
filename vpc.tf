@@ -4,7 +4,7 @@ resource "aws_vpc" "ecomm-vpc" {
   instance_tenancy = "default"
 
   tags = {
-    Name = "ecomm"
+    Name = "ecomm-vpc"
   }
 }
 
