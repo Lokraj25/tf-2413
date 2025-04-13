@@ -169,7 +169,7 @@ resource "aws_security_group" "ibm_web_sg" {
   }
 }
 
-#ssh security group
+#ssh security groupp
 resource "aws_vpc_security_group_ingress_rule" "ibm_web_ssh" {
   security_group_id = aws_security_group.ibm_web_sg.id
   cidr_ipv4         = "0.0.0.0/0"
