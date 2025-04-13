@@ -162,8 +162,7 @@ resource "aws_network_acl_association" "ibm-data-nacl-association" {
 resource "aws_security_group" "ibm_web_sg" {
   name        = "ibm_web_server_sg"
   description = "Allow web server traffic"
-  vpc_id      = aws_vpc.ibm_vpc.id
-
+  vpc_id      = aws_vpc.ibm-vpc.id
   tags = {
     Name = "ibm_web_security_group"
   }
